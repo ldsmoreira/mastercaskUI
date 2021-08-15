@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="74mm" height="120mm" version="1.1" viewBox="0 0 74 120" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0,-177)">
+  <g transform="translate(-94.268 117.1)">
+   <path d="m95.171 67.999h72.195v111.74h-72.195z" style="fill:none;stroke-linejoin:round;stroke-width:.3;stroke:#000"/>
+   <rect x="107.75" y="60.698" width="47.043" height="7.0067" style="fill:none;stroke-linejoin:round;stroke-width:.28706;stroke:#000"/>
+   <rect x="95.171" y="168.7" width="8.9669" height="11.036" style="fill:none;stroke-linejoin:round;stroke-width:.3;stroke:#000"/>
+   <rect x="158.4" y="168.7" width="8.9669" height="11.036" style="fill:none;stroke-linejoin:round;stroke-width:.3;stroke:#000"/>
+   <rect x="126.78" y="168.7" width="8.9669" height="11.036" style="fill:none;stroke-linejoin:round;stroke-width:.3;stroke:#000"/>
+   <rect x="104.14" y="72.827" width="54.261" height="95.877" style="fill:none;stroke-linejoin:round;stroke-width:.31006;stroke:#000"/>
+   <rect x="110" y="80.744" width="42.535" height="98.996" style="fill:none;stroke-linejoin:round;stroke-width:.31603;stroke:#000"/>
+  </g>
+ </g>
+ <path d="m15.566 108.68-5.694 0.12476v-95.877h54.261v95.877l-5.9726-0.12476 0.10662-87.835h-42.535z" style="fill:none;stroke-width:.26458px;stroke:#000"/>
+ <path d="m9.8699 119.84 0.00212-11.032 5.694-0.12476 0.16596 11.161z" style="fill:none;stroke-width:.26458px;stroke:#000"/>
+ <path d="m58.16 108.68 5.9716 0.12075v11.036l-5.865 4e-3z" style="fill:none;stroke-width:.26458px;stroke:#000"/>
+ <path d="m32.512 108.8h8.9669v11.036h-8.9669v-11.036h8.9669v11.036h-8.9669z" style="fill:none;stroke-width:.26458px;stroke:#000"/>
+ <path d="m15.732 20.844h42.535l-0.10662 87.835h-42.594z" style="fill:none;stroke-width:.26458px;stroke:#000"/>
+ <path d="m73.099 108.8-8.97e-4 -100.7h-72.195l-2.38e-6 100.7h8.9669l0.00212-95.873h54.261l-0.0011 95.873z" style="fill:none;stroke-width:.26458px;stroke:#000"/>
+</svg>

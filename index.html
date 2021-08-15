@@ -1,19 +1,722 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
-  </head>
-  <body>
-    <h1>Hello World!</h1>
-    We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
+<html lang="en">
 
-    <!-- You can also require other files to run in this process -->
-    <script src="./renderer.js"></script>
-  </body>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles/styles.css">
+    <link rel="stylesheet" href="styles/fontawesome-free-5.15.3-web/css/all.css">
+    <script defer src="styles/fontawesome-free-5.15.3-web/js/all.js"></script>
+    <title>SiCask</title>
+</head>
+
+<body>
+    <div id="container">
+
+        <div class="left">
+            <div class="top">
+                <div class="title">
+                    <h3>General View</h3>
+                    <i class="back-arrow fas fa-arrow-right"></i>
+                </div>
+                <div class="cask-card">
+                    <h2>70 °C</h2>
+
+                    <h5>Cask</h5>
+                </div>
+                <div class="canister-card">
+                    <h2>
+                        30 °C
+                    </h2>
+                    <h5>Canister</h5>
+                </div>
+                <div class="ambiente-card">
+                    <h2>
+                        47 °C
+                    </h2>
+                    <h5>Ambiente</h5>
+                </div>
+
+
+                <!-- <svg id="cask-image" width="auto" height="70%" version="1.1" viewBox="0 0 74 120"
+                    xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,-177)">
+                        <g transform="translate(-94.268 117.1)">
+                            <path class="cask-component" d="m95.171 67.999h72.195v111.74h-72.195z" />
+                            <rect class="cask-component" x="107.75" y="60.698" width="47.043" height="7.0067"
+                                style="stroke-linejoin:round;stroke-width:.28706;stroke:#000" />
+                            <rect class="cask-component" x="95.171" y="168.7" width="8.9669" height="11.036"
+                                style="stroke-linejoin:round;stroke-width:.3;stroke:#000" />
+                            <rect class="cask-component" x="158.4" y="168.7" width="8.9669" height="11.036"
+                                style="stroke-linejoin:round;stroke-width:.3;stroke:#000" />
+                            <rect class="cask-component" x="126.78" y="168.7" width="8.9669" height="11.036"
+                                style="stroke-linejoin:round;stroke-width:.3;stroke:#000" />
+                            <rect class="cask-component" x="104.14" y="72.827" width="54.261" height="95.877"
+                                style="stroke-linejoin:round;stroke-width:.31006;stroke:#000" />
+                            <rect class="cask-component" x="110" y="80.744" width="42.535" height="98.996"
+                                style="stroke-linejoin:round;stroke-width:.31603;stroke:#000" />
+                        </g>
+                    </g>
+                    <path class="cask-component" id="canister-path"
+                        d="m15.566 108.68-5.694 0.12476v-95.877h54.261v95.877l-5.9726-0.12476 0.10662-87.835h-42.535z"
+                        style="stroke-width:.26458px;stroke:#000" />
+                    <path class="cask-component" d="m9.8699 119.84 0.00212-11.032 5.694-0.12476 0.16596 11.161z"
+                        style="stroke-width:.26458px;stroke:#000" />
+                    <path class="cask-component" d="m58.16 108.68 5.9716 0.12075v11.036l-5.865 4e-3z"
+                        style="stroke-width:.26458px;stroke:#000" />
+                    <path class="cask-component" d="m32.512 108.8h8.9669v11.036h-8.9669v-11.036h8.9669v11.036h-8.9669z"
+                        style="stroke-width:.26458px;stroke:#000" />
+                    <path class="cask-component" id="fuel-path" d="m15.732 20.844h42.535l-0.10662 87.835h-42.594z"
+                        style="stroke-width:.26458px;stroke:#000" />
+                    <path class="cask-component" id="concrete-path"
+                        d="m73.099 108.8-8.97e-4 -100.7h-72.195l-2.38e-6 100.7h8.9669l0.00212-95.873h54.261l-0.0011 95.873z"
+                        style="stroke-width:.26458px;stroke:#000" />
+                </svg> -->
+
+                <svg id="cask-image" height="70%" version="1.1" viewBox="0 0 90 140" xmlns="http://www.w3.org/2000/svg"
+                    xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+                    <g transform="translate(0,-160)">
+                        <path class="cask-path"
+                            d="m30.025 280.71c9.5874 3.0014 22.689 2.1943 28.624 0.68154 9.1634-2.3358 14.897-5.6903 20.707-10.241l-0.1482-73.456-6.6578-2.2004-7.1535-1.7681 0.88592 73.938c-2.1451 2.3351-4.9664 4.0319-11.33 5.5199-5.8965 1.3787-11.96 0.9196-18.158-0.58105l-0.13564-73.598-7.0639 8.4043z" />
+                        <path class="cask-path"
+                            d="m79.208 197.7c0.01628-1.4737 1.5416-3.1785 2.4349-4.35 0.61202-2.0666 0.6905-2.8377 1.1375-4.435l0.34856 88.823c-1.2925 2.2599-1.8235 2.8372-3.7231 4.4907-1.4071 1.2248-3.2664 2.2906-4.9573 3.22-6.3026 3.4643-13.598 5.1176-20.742 5.9387-8.6485 0.99384-17.482 0.43899-26.084-1.3058-3.1453-0.63798-7.1055-1.7236-9.3483-2.4712-2.3305-0.77683-4.5939-1.7535-5.9902-2.3968-2.8675-1.3212-2.8156-1.342-3.9988-2.2477l-0.30234-91.946c1.6793 3.4693 0.67522 5.5339 6.8365 10.371 4.0937 3.2138 9.9279 4.6403 15.206 5.8566l3.9e-5 73.469c2.4079 0.56021 8.3285 1.605 11.391 1.8007 7.3754 0.4713 11.747 0.12735 17.402-1.2264 5.2073-1.2465 10.092-3.6945 14.798-6.2489 2.0305-1.1022 5.7396-3.8852 5.7396-3.8852s-0.41744-49.023-0.1482-73.456z" />
+                        <path class="canister-path" transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m111.9 107.14c3.3046-0.63735 6.4812-1.9311 9.2907-3.7839l0.70891 51.058c-0.7877 0.71527-1.6679 1.3285-2.6118 1.8196-1.1388 0.59249-2.3623 1.0045-3.5947 1.3637-2.8962 0.84415-5.9124 1.4121-8.922 1.2039-1.7988-0.12441-3.5782-0.52696-5.2554-1.189l-0.0933-50.626c3.433 0.76651 7.0237 0.81885 10.478 0.15271z" />
+                        <path class="canister-path" transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m111.9 107.14c-3.4538 0.66614-7.0446 0.6138-10.478-0.15271l6.2503-7.2248 13.518 3.5936c-2.8095 1.8528-5.9861 3.1466-9.2907 3.7839z" />
+                        <path class="cask-path" transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m96.863 112.65c-2.8736-0.40793-5.6799-1.2862-8.2734-2.5892-1.402-0.70441-2.7508-1.5388-3.9005-2.6065-1.1497-1.0677-2.0971-2.3799-2.5978-3.8669-0.52322-1.5539-0.53784-3.2764-0.02966-4.8352 0.74566-2.2873 2.5264-4.0853 4.4179-5.5719 1.0076-0.79192 2.0636-1.5224 3.16-2.1859-0.49041 0.82746-0.78416 1.7706-0.85033 2.7302-0.04315 0.62576 9e-3 1.2536 0.03425 1.8803 0.01062 0.2633 0.01891 0.5267 0.03079 0.78994l0.23787 5.27c1.0087 1.6098 2.3162 3.0316 3.8361 4.1713 2.0444 1.5331 4.4734 2.5492 7.0005 2.9284l-3.0656 3.8855" />
+                        <path class="cask-path" transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m132.03 104.31c0.96613-1.4378 1.3553-3.2519 1.0639-4.9594-0.33734-1.9767-1.5331-3.7169-2.967-5.1187-1.1647-1.1386-2.5039-2.0983-3.9564-2.8354 0.19938 0.47583 0.34352 0.97478 0.4286 1.4836 0.12199 0.72957 0.12199 1.4794 0 2.209l0.14685 6.7669c-0.0864 0.48113-0.27487 0.94367-0.54927 1.3482-0.29524 0.43528-0.68985 0.80273-1.145 1.0662l5.6377 1.8091z" />
+                        <path class="tampa-path" transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m92.843 105.84c-0.80298-0.57908-1.5405-1.2488-2.1941-1.9924-0.59107-0.67251-1.1135-1.4053-1.5565-2.1834l-0.31312-7.8817c0.86092 2.4692 2.3953 4.6998 4.3934 6.3867 1.8879 1.594 4.1843 2.7 6.6076 3.1824l0.14871 5.4123c-1.2296-0.13409-2.4362-0.46158-3.5733-0.94835-1.1371-0.48678-2.1954-1.1373-3.239-1.8014z" />
+                        <path class="tampa-path"
+                            d="m70.865 185.55c0.41578-0.6075 0.83118-1.2146 1.2462-1.8214 0.41501-0.60673 0.91195-3.4583 1.295-4.1289l0.06876 11.845s-0.0015 0.96185-0.61833 1.8568c-0.18837 0.34868-1.0561 1.2034-1.2995 1.3502-0.12168 0.0733 0.03649-0.0355-0.54527 0.41162z" />
+                        <path class="tampa-path" transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m126.19 95.681c0.4036-1.0793 0.6652-2.2519 0.4478-3.3835-0.19773-1.0292-0.78275-1.9546-1.5175-2.7019-0.73479-0.7473-1.6167-1.3324-2.5128-1.8758-1.4233-0.86314-2.9072-1.6389-4.4782-2.1893-2.3907-0.83763-4.9353-1.1377-7.4636-1.2937-3.5267-0.21756-7.0978-0.16211-10.549 0.59709-2.8946 0.63683-5.7057 1.7831-8.0607 3.5825-1.2361 0.94451-2.3719 2.1143-2.8859 3.5825-0.36984 1.0564-0.39369 2.2215-0.12967 3.3092 0.26402 1.0877 0.80882 2.0984 1.5229 2.9603 0.85557 1.0327 1.9437 1.8506 3.0878 2.5501 1.8951 1.1586 3.9731 2.0176 6.1332 2.5353l7.7961-9.6631 17.388 4.4408c0.49122-0.77122 0.90143-1.594 1.2217-2.4505z" />
+                        <path class="tampa-path" d="m34.266 193.73 11.189-14.048 0.28934 8.825-11.262 13.091z" />
+                        <path class="tampa-path"
+                            d="m70.878 186.14 0.13433 8.932c0.9204 0.4818-16.845-4.3752-25.267-6.5628l-0.28934-8.825z" />
+                        <path class="cask-path" d="m30.025 280.71 6.7682-8.1073" />
+                        <path class="cask-path" d="m79.356 271.15-12.929-3.197" />
+                        <path transform="matrix(1.4538 0 0 1.4538 -110.79 43.475)"
+                            d="m102.33 105.87c3.067 0.51145 6.2237 0.47971 9.2798-0.0933 2.7834-0.52189 5.4823-1.4918 7.9612-2.8611"
+                            style="fill:none;stroke-width:.05;stroke:#000000" />
+                        <path class="cask-path" d="m11.328 284.79-0.04312-9.5185 3.046 1.1432-0.06174 9.6285" />
+                        <path class="cask-path"
+                            d="m26.989 289.96-0.01236-10.02 3.917 1.0307c-0.02543 10.171-0.06141 3.6824-0.0379 9.7253" />
+                        <path class="cask-path"
+                            d="m58.367 290.66-0.16532-9.182 4.0537-1.0613c0.3478 10.308 0.24506 9.4991 0.24506 9.4991" />
+                        <ellipse class="cask-path" cx="47.275" cy="192.16" rx=".41209" ry=".3948" />
+                        <path class="cask-path"
+                            d="m77.715 283.49-0.16221-10.95 2.7497-2.0458c0.17349 10.099 0.14276 8.2538 0.12953 10.77" />
+                    </g>
+                </svg>
+
+
+            </div>
+
+
+            <!-- <div class="bottom"> -->
+            <!-- <h3>Metrics</h3> -->
+            <!-- <div> -->
+            <!-- <p>Internal Temperature</p> -->
+            <!-- <canvas id="foo" class="gauge-canvas"></canvas> -->
+            <!-- </div> -->
+            <!-- <div><canvas id="bar" class="gauge-canvas"></canvas></div> -->
+            <!-- <div><canvas id="doe" class="gauge-canvas"></canvas></div> -->
+            <!-- </div> -->
+
+            <!-- <div class="bottom">
+                <canvas id="chart" style="width:100%;height:100%;"></canvas>
+            </div> -->
+
+
+
+
+
+        </div>
+        <div class="right">
+
+
+            <div class="top">
+                <!-- <canvas id="chart" style="width:100%;height:100%;"></canvas> -->
+                <div class="alert-div">
+                    <div class="boxes-title">
+                        <h3>Tag</h3>
+                        <h3 class="tag-title">Alarme</h3>
+
+                    </div>
+                    <!-- <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div>
+                    <div class="right-alert-box">
+                        <div class="code">
+                            <h2 class="code-title">
+                                DC01
+                            </h2>
+                        </div>
+
+                        <div class="alert">
+                            <p class="alert-text">
+                                Temperatura do canister a cima do limite superior
+                            </p>
+                        </div>
+                    </div> -->
+                </div>
+                <div class="plant-div">
+                    <svg class="plant-svg" version="1.1" viewBox="0 0 130 81" xmlns="http://www.w3.org/2000/svg"
+                        xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/"
+                        xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+                        xmlns:xlink="http://www.w3.org/1999/xlink">
+
+
+                        <path
+                            d="m2.6572 2.665v75.449h110.31l15.031-11.793v-63.656zm0.10358 0.26563h124.97v63.262l-14.859 11.658h-109.95z"
+                            style="color-rendering:auto;color:#000000;dominant-baseline:auto;fill:none;font-feature-settings:normal;font-variant-alternates:normal;font-variant-caps:normal;font-variant-ligatures:normal;font-variant-numeric:normal;font-variant-position:normal;image-rendering:auto;isolation:auto;mix-blend-mode:normal;opacity:.48;paint-order:markers fill stroke;shape-padding:0;shape-rendering:auto;solid-color:#000000;stroke-dasharray:0.30000001, 0.30000001;stroke-dashoffset:2.07;stroke-width:.3;stroke:#000000;text-decoration-color:#000000;text-decoration-line:none;text-decoration-style:solid;text-indent:0;text-orientation:mixed;text-transform:none;white-space:normal" />
+                        <g transform="translate(0,-216)">
+                            <circle class="plant-cask-top plant-cask-CD01" cx="78.446" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD02" cx="68.363" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD03" cx="73.405" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD04" cx="58.279" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD05" cx="63.321" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD06" cx="48.196" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD07" cx="53.237" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD08" cx="43.154" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top plant-cask-CD09" cx="38.112" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="258.46" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="253.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="248.41" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="243.39" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="238.69" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="233.34" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="38.112" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="228.48" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="78.446" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="68.363" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="73.405" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="58.279" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="63.321" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="48.196" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="53.237" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                            <circle class="plant-cask-top" cx="43.154" cy="223.28" r="1.8635"
+                                style="fill:#000000;stroke-linejoin:round;stroke-width:.3;stroke:#000000" />
+                        </g>
+                        <g transform="translate(0,-216)">
+                            <path d="m33.981 218.93v43.556h69.326v-17.601h24.488v-7.9815h-24.468v-17.974l-20.806-4e-3z"
+                                style="fill:none;stroke-width:.26458px;stroke:#000000" />
+                            <path d="m103.33 236.91-0.0202 7.9815"
+                                style="fill:none;stroke-width:.26458px;stroke:#000000" />
+                            <path d="m82.381 262.21v-43.463" style="fill:none;stroke-width:.26458px;stroke:#000000" />
+                        </g>
+                    </svg>
+                </div>
+            </div>
+
+            <div class="bottom">
+                <div class="boxes-title">
+                    <h3>Vista</h3>
+                    <h3>Tag</h3>
+                    <h3>Temperatura (°C)</h3>
+                    <h3>Umidade (%)</h3>
+                    <h3>Radiação (mrad)</h3>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" id="mini-cask-1" version="1.1" viewBox="0 0 30 30"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+                <div class="box">
+                    <div class="mini-cask-svg">
+                        <svg class="top-svg" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+                            <g transform="translate(0,-267)">
+                                <circle class="component-success cask-mini" cx="15.244" cy="282.06" r="12.617"
+                                    style="fill:none;stroke-linejoin:round;stroke-width:4.4487;" />
+                                <ellipse class="component-success canister-mini" cx="15.129" cy="281.95" rx="7.6169"
+                                    ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;" />
+                                <ellipse class="component-success fuel-mini" cx="14.966" cy="282.03" rx="4.9026"
+                                    ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;" />
+                            </g>
+                        </svg>
+                    </div>
+                    <div class="tag">
+
+                        <h2 class="tag-value">CD01</h2>
+                    </div>
+                    <div class="temperature">
+                        <i class="temperature-icon fas fa-temperature-low"></i>
+                        <h2 class="temperature-value">70</h2>
+                    </div>
+                    <div class="humidity">
+                        <i class="humidity-icon fas fa-water"></i>
+                        <h2 class="humidity-value">33</h2>
+                    </div>
+                    <div class="radiation">
+                        <i class="radiation-icon fas fa-radiation"></i>
+                        <h2 class="radiation-value">0.1</h2>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div class="right graphs">
+
+            <div class="temperature-graph">
+                <div id="CD01-temperature"></div>
+            </div>
+            <div class="radiation-graph">
+                <div id="CD01-radiation"></div>
+            </div>
+            <div class="humidity-graph">
+                <div id="CD01-humidity"></div>
+            </div>
+
+
+        </div>
+
+
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+    <!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+    <script src="utils/js/core.js"></script>>
+    <script src="utils/js/caskInterface.js"></script>>
+    <script src="utils/js/gauge.min.js"></script>
+    <script src="utils/js/gaugeController.js"></script>>
+    <script src="utils/js/chartController.js" type="module"></script>
+
+</body>
+
 </html>

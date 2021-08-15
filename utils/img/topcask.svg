@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30mm" height="30mm" version="1.1" viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
+ <g transform="translate(0,-267)">
+  <circle cx="15.244" cy="282.06" r="12.617" style="fill:none;stroke-linejoin:round;stroke-width:4.4487;stroke:#000"/>
+  <ellipse cx="15.129" cy="281.95" rx="7.6169" ry="7.5376" style="fill:none;stroke-linejoin:round;stroke-width:3.642;stroke:#000"/>
+  <ellipse cx="14.966" cy="282.03" rx="4.9026" ry="4.3143" style="stroke-linejoin:round;stroke-width:.52774;stroke:#000"/>
+ </g>
+</svg>
