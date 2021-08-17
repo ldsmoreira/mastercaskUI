@@ -1,5 +1,22 @@
 var dataObjs, chartFlag;
 
+var maxVal = {
+  "variable" : {
+    "temperature": 300,
+    "humidity" : 20,
+    "radiation" : 60,
+  },
+  "fuel":{
+    "temperature":300,
+  },
+  "cask":{
+    "temperature":400,
+  },
+  "canister":{
+    "temperature":350,
+  }
+}
+
 var chartsData = {
   "CD01":{
     "temperature":[],
@@ -77,13 +94,50 @@ function compareTemperature(a, b)
 }
 
 
-var miniCaskColors = {
-  normal : "rgb(185, 185, 185)",
-  semiNormal : "rgb(181, 181, 114)",
-  anormal : "rgb(232, 240, 109)",
-  critical : "rgb(250, 74, 74)",
-  superCritical : "rgb(255, 0, 0)",
-};
+function alertNodeGenerator(value, maxValue, alarmMessage, dataObj){
+    let priority = null
+    let plantDiv = document.getElementsByClassName("plant-div")
+    let node = document.createElement("DIV");
+    node.classList.add("right-alert-box");
+    if(value < 0.7*maxValue){
+      return {"null":null, "priority":0}
+    }
+    else if(value >= maxValue){
+      node.style.background = "red";
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.fill = "red";
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.stroke = "red";
+      priority = 2
+    }else if(value >= 0.7*maxValue){
+      node.style.background = "yellow";
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.fill = "yellow";
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.stroke = "yellow";
+      priority = 1
+    }
+    
+    console.log("Hello")
+    let code = document.createElement("DIV");
+    code.classList.add("code");
+    
+    let alert = document.createElement("DIV");
+    alert.classList.add("alert");
+    
+    let codeTitle = document.createElement("H2");
+    codeTitle.classList.add("code-title");
+    
+    let alertText = document.createElement("P");
+    alertText.classList.add("alert-text");
+    
+    alert.appendChild(alertText);
+    
+    codeTitle.innerHTML = dataObj.id
+    alertText.innerHTML = `${alarmMessage}:${value}`;
+    code.appendChild(codeTitle)
+    alert.appendChild(alertText)
+    node.appendChild(code)
+    node.appendChild(alert)
+
+    return {"node":node, "priority":priority}
+}
 
 var boxArray = document.getElementsByClassName("box");
 document.body.addEventListener('dblclick', function (event) {
@@ -96,7 +150,7 @@ document.body.addEventListener('dblclick', function (event) {
       document.getElementsByClassName("right")[0].style.display = "none";
       document.getElementsByClassName("left")[0].style.display = "block";
       
-      console.log(element.id);
+      console.log(dataObjs);
       for (dataObj of dataObjs){
         if (dataObj.id == element.id){
           root.style.setProperty("--cask-color", dataObj.cask.color);
@@ -121,6 +175,7 @@ document.body.addEventListener('dblclick', function (event) {
     }, false);
     
 window.api.receive("fromMain", (data) => {
+      let alarmArray = []
       var t0 = performance.now()
       let alertDiv = document.getElementsByClassName("alert-div")[0];
       let alertArray = [];
@@ -128,51 +183,37 @@ window.api.receive("fromMain", (data) => {
       dataObjs = data;
       dataCarrier = data;
       data.sort(compareTemperature);
-
-      let paras = document.getElementsByClassName('right-alert-box');
-      // if(paras.length != 0){
-        
-      //   while(paras[0]){
-      //       paras[0].parentNode.removeChild(paras[0]);
-      //     }​
-
-      // }
-
-      document.querySelectorAll('.right-alert-box').forEach(e => e.remove());
-
-    //   for(let o = 0; o == 3; o++){
-    //   for(let alert12 of document.getElementsByClassName("right-alert-box")){
-    //     alert12.parentNode.removeChild(alert12);
-    //     console.log(alert12)
-    //   };
-    // }
       
-
+      let paras = document.getElementsByClassName('right-alert-box');
+      
+      document.querySelectorAll('.right-alert-box').forEach(e => e.remove());
+      
+      
   for(let i = 0; i < data.length; i++) {
-
-  // boxArray = document.getElementsByClassName("box");
-  boxArray[i].id = data[i].id
-  boxArray[i].getElementsByClassName("tag-value")[0].innerHTML = data[i].id;
-  boxArray[i].getElementsByClassName("temperature-value")[0].innerHTML = data[i].variable.temperature;
-  boxArray[i].getElementsByClassName("humidity-value")[0].innerHTML = data[i].variable.humidity;
-  boxArray[i].getElementsByClassName("radiation-value")[0].innerHTML = data[i].variable.radiation;
-  
-  
-  if(chartsData[data[i].id].temperature.length < 25){
+        
+    // boxArray = document.getElementsByClassName("box");
+    boxArray[i].id = data[i].id
+    boxArray[i].getElementsByClassName("tag-value")[0].innerHTML = data[i].id;
+    boxArray[i].getElementsByClassName("temperature-value")[0].innerHTML = data[i].variable.temperature;
+    boxArray[i].getElementsByClassName("humidity-value")[0].innerHTML = data[i].variable.humidity;
+    boxArray[i].getElementsByClassName("radiation-value")[0].innerHTML = data[i].variable.radiation;
     
-    chartsData[data[i].id].temperature.push(data[i].variable.temperature)
-    chartsData[data[i].id].humidity.push(data[i].variable.humidity)
-    chartsData[data[i].id].radiation.push(data[i].variable.radiation)
-  }else{
     
-    chartsData[data[i].id].temperature.push(data[i].variable.temperature)
-    chartsData[data[i].id].temperature.shift()
-    chartsData[data[i].id].humidity.push(data[i].variable.humidity)
-    chartsData[data[i].id].humidity.shift()
-    chartsData[data[i].id].radiation.push(data[i].variable.radiation)
-    chartsData[data[i].id].radiation.shift()
-  }
-
+    if(chartsData[data[i].id].temperature.length < 25){
+      
+      chartsData[data[i].id].temperature.push(data[i].variable.temperature)
+      chartsData[data[i].id].humidity.push(data[i].variable.humidity)
+      chartsData[data[i].id].radiation.push(data[i].variable.radiation)
+    }else{
+    
+      chartsData[data[i].id].temperature.push(data[i].variable.temperature)
+      chartsData[data[i].id].temperature.shift()
+      chartsData[data[i].id].humidity.push(data[i].variable.humidity)
+      chartsData[data[i].id].humidity.shift()
+      chartsData[data[i].id].radiation.push(data[i].variable.radiation)
+      chartsData[data[i].id].radiation.shift()
+    }
+  
   dataObjs[i].cask.color =  temperatureColorSelector(data[i].cask.temperature);
   dataObjs[i].canister.color =  temperatureColorSelector(data[i].canister.temperature);
   dataObjs[i].fuel.color =  temperatureColorSelector(data[i].fuel.temperature);
@@ -180,62 +221,86 @@ window.api.receive("fromMain", (data) => {
   boxArray[i].getElementsByClassName("cask-mini")[0].style.stroke = temperatureColorSelector(data[i].cask.temperature);
   boxArray[i].getElementsByClassName("canister-mini")[0].style.stroke = temperatureColorSelector(data[i].canister.temperature);
   boxArray[i].getElementsByClassName("fuel-mini")[0].style.fill = temperatureColorSelector(data[i].fuel.temperature);
+
+  let temperatureAlarm = alertNodeGenerator(dataObjs[i].variable.temperature, maxVal.variable.temperature, "Temperatura elevada", dataObjs[i])
+  console.log(temperatureAlarm)
+  let humidityAlarm = alertNodeGenerator(dataObjs[i].variable.humidity, maxVal.variable.humidity, "Umidade elevada", dataObjs[i])
+  console.log(humidityAlarm)
+  let radiationAlarm = alertNodeGenerator(dataObjs[i].variable.radiation, maxVal.variable.radiation, "Radiacao elevada", dataObjs[i])
+  console.log(radiationAlarm)
+  let fuelTemperatureAlarm = alertNodeGenerator(dataObjs[i].fuel.temperature, maxVal.fuel.temperature, "Temperatura do nucleo elevada", dataObjs[i])
+  let caskTemperatureAlarm = alertNodeGenerator(dataObjs[i].cask.temperature, maxVal.canister.temperature, "Temperatura do cask elevada", dataObjs[i])
+  let canisterTemperatureAlarm = alertNodeGenerator(dataObjs[i].canister.temperature, maxVal.canister.temperature, "Radiacao elevada", dataObjs[i])
+
+  alarmArray = alarmArray.concat([temperatureAlarm, humidityAlarm, radiationAlarm, fuelTemperatureAlarm, caskTemperatureAlarm, canisterTemperatureAlarm])
+
+ 
+
   
-  
-  
-  if (dataObjs[i].variable.temperature > 200){
-    // console.log(plantDiv);
+  // if (dataObjs[i].variable.temperature > 200){
+  //   // console.log(plantDiv);
     
-    var alarmTemperature = dataObjs[i].variable.temperature
+  //   var alarmTemperature = dataObjs[i].variable.temperature
     
-    var node = document.createElement("DIV");
-    node.classList.add("right-alert-box");
-    if(alarmTemperature < 300){
-      node.style.background = "yellow";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.fill = "yellow";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.stroke = "yellow";
-    }else if(alarmTemperature >= 300){
-      node.style.background = "red";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.fill = "red";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.stroke = "red";
-    }
+  //   var node = document.createElement("DIV");
+  //   node.classList.add("right-alert-box");
+  //   if(alarmTemperature < 300){
+  //     node.style.background = "yellow";
+  //     plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.fill = "yellow";
+  //     plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.stroke = "yellow";
+  //   }else if(alarmTemperature >= 300){
+  //     node.style.background = "red";
+  //     plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.fill = "red";
+  //     plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.stroke = "red";
+  //   }
     
-    let code = document.createElement("DIV");
-    code.classList.add("code");
+  //   let code = document.createElement("DIV");
+  //   code.classList.add("code");
     
-    let alert = document.createElement("DIV");
-    alert.classList.add("alert");
+  //   let alert = document.createElement("DIV");
+  //   alert.classList.add("alert");
     
-    let codeTitle = document.createElement("H2");
-    codeTitle.classList.add("code-title");
+  //   let codeTitle = document.createElement("H2");
+  //   codeTitle.classList.add("code-title");
     
-    let alertText = document.createElement("P");
-    alertText.classList.add("alert-text");
+  //   let alertText = document.createElement("P");
+  //   alertText.classList.add("alert-text");
     
-    alert.appendChild(alertText);
+  //   alert.appendChild(alertText);
     
-    codeTitle.innerHTML = dataObjs[i].id
-    alertText.innerHTML = "Temperatura do sistema a cima do limite";
-    code.appendChild(codeTitle)
-    alert.appendChild(alertText)
-    node.appendChild(code)
-    node.appendChild(alert)
-    // console.log(alertDiv.contains(node));
-    // let alert = document.createElement("DIV");
-    if(!alertArray.some( alert => alert.id === dataObjs[i].id)){
-      alertArray.push(new alertsObj(dataObjs[i].id, "Temperatura do sistema a cima do limite"));
-      alertDiv.appendChild(node);
-    }
-  };
-  if(dataObjs[i].variable.temperature <= 200){
+  //   codeTitle.innerHTML = dataObjs[i].id
+  //   alertText.innerHTML = "Temperatura do sistema a cima do limite";
+  //   code.appendChild(codeTitle)
+  //   alert.appendChild(alertText)
+  //   node.appendChild(code)
+  //   node.appendChild(alert)
+  //   // console.log(alertDiv.contains(node));
+  //   // let alert = document.createElement("DIV");
+  //   if(!alertArray.some( alert => alert.id === dataObjs[i].id)){
+  //     alertArray.push(new alertsObj(dataObjs[i].id, "Temperatura do sistema a cima do limite"));
+  //     alertDiv.appendChild(node);
+  //   }
+  // };
+
+  canTurnOffAlarm = dataObjs[i].variable.temperature < 0.7*maxVal.variable.temperature &&
+                    dataObjs[i].variable.humidity < 0.7*maxVal.variable.humidity &&
+                    dataObjs[i].variable.radiation  < 0.7*maxVal.variable.radiation &&
+                    dataObjs[i].fuel.temperature < 0.7*maxVal.fuel.temperature &&
+                    dataObjs[i].cask.temperature < 0.7*maxVal.cask.temperature &&
+                    dataObjs[i].canister.temperature < 0.7*maxVal.canister.temperature
+
+  if(canTurnOffAlarm){
     plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.fill = "black";
     plantDiv[0].getElementsByClassName(`plant-cask-${dataObjs[i].id}`)[0].style.stroke = "black";
 };
 }
-
-console.log("Hello World")
-var t1 = performance.now()
-console.log(t1 - t0);
+alarmArray = alarmArray.sort((a,b) => (a.priority <= b.priority) ? 1 : ((a.priority > b.priority) ? -1 : 0))
+console.log(alarmArray)
+for (let node of alarmArray){
+  if(node.node){
+    alertDiv.appendChild(node.node)
+  }
+}
 });
 
 
