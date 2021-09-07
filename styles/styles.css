@@ -397,6 +397,11 @@ h3 {
     min-width: 350px;
 }
 
+.plant-cask-top {
+    fill: rgba(70, 64, 64, 0.1);
+    stroke: rgba(70, 64, 64, 0.1);
+}
+
 .graphs {
     display: none;
     /* width: 0vw; */
