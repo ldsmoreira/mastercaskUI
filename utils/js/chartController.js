@@ -1,6 +1,6 @@
 var options = {
   chart: {
-    type: 'area',
+    type: 'line',
     width: '100%',
     height: '100%',
     animations: {
@@ -15,7 +15,7 @@ var options = {
     dashArray: 0,      
 },
 title: {
-  text: 'Temperatura no Nucleo',
+  text: 'Temperatura no Núcleo (°C)',
   align: 'left'
 },
   series: [{
@@ -26,6 +26,9 @@ title: {
     type: "category",
     tickAmount: 6,
   },
+  yaxis:{
+    forceNiceScale:true,
+  },
   dataLabels: {
     enabled: false,
   }
@@ -33,15 +36,16 @@ title: {
 
 var chart1 = new ApexCharts(document.querySelector("#CD01-temperature"), options);
 
-options.title.text = "Radiacao externa ao Cask";
-var chart2 = new ApexCharts(document.querySelector("#CD01-radiation"), options);
+options.title.text = "Taxa de dose externa (μrad/s)";
+var chart2 = new ApexCharts(document.querySelector("#CD01-humidity"), options);
 
-options.title.text = "Umidade no Canister";
-var chart3 = new ApexCharts(document.querySelector("#CD01-humidity"), options);
+options.title.text = "Umidade Relativa Canister (%)";
+var chart3 = new ApexCharts(document.querySelector("#CD01-radiation"), options);
+
 
 chart1.render();
-chart3.render();
 chart2.render();
+chart3.render();
 
 window.setInterval(function () {
 let generalViewTitle = document.getElementById("vista-geral");
@@ -67,9 +71,9 @@ chart1.updateSeries([{
   data: chartsData[chartFlag].temperature
 }])
 chart2.updateSeries([{
-  data: chartsData[chartFlag].humidity
-}])
-chart3.updateSeries([{
   data: chartsData[chartFlag].radiation
 }])
-}, 1000)
+chart3.updateSeries([{
+  data: chartsData[chartFlag].humidity
+}])
+}, 10000)

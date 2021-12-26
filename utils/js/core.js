@@ -3,17 +3,17 @@ var dataObjs, chartFlag, detailUpdateObj;
 var maxVal = {
   "variable" : {
     "temperature": 300,
-    "humidity" : 20,
-    "radiation" : 60,
   },
   "fuel":{
-    "temperature":300,
+    "temperature":570,
   },
   "cask":{
-    "temperature":400,
+    "temperature":103,
+    "radiation" : 0.063,
   },
   "canister":{
-    "temperature":350,
+    "temperature":427,
+    "humidity" : 50,
   }
 }
 
@@ -83,9 +83,7 @@ function temperatureColorSelector(value, comparator){
 }
 
 function compareTemperature(a, b)
-{   
-  // console.log(a.variable.temperature);
-  // console.log(b.variable.temperature);
+{
   if (a.fuel.temperature > b.fuel.temperature)
   return -1;
   if (a.fuel.temperature < b.fuel.temperature)
@@ -94,24 +92,40 @@ function compareTemperature(a, b)
 }
 
 
-function alertNodeGenerator(value, maxValue, alarmMessage, dataObj){
-    let priority = null
-    let plantDiv = document.getElementsByClassName("plant-div")
+function alertNodeGenerator(value, maxValue, alarmMessage, dataObj, kind){
+    let colorHighPriority;
+    let colorLowPriority;
+
+    if(kind == "humidity"){
+      colorHighPriority = "rgba(0, 41, 249, 0.72)";
+      colorLowPriority = "rgba(0, 41, 249, 0.72)";
+    }
+    else{
+      colorHighPriority = "rgba(255, 20, 20, 0.71)";
+      colorLowPriority = "rgba(255, 255, 50, 0.71)";
+    }
+
+    let priority = null;
+    let plantDiv = document.getElementsByClassName("plant-div");
     let node = document.createElement("DIV");
     node.classList.add("right-alert-box");
+
     if(value < 0.7*maxValue){
       return {"null":null, "priority":0}
-    }
-    else if(value >= maxValue){
-      node.style.background = "red";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.fill = "red";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.stroke = "red";
+    }else if(value >= maxValue){
+      node.style.background = colorHighPriority;
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.fill = colorHighPriority;
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.stroke = colorHighPriority;
       priority = 2
     }else if(value >= 0.7*maxValue){
-      node.style.background = "yellow";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.fill = "yellow";
-      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.stroke = "yellow";
+      node.style.background = colorLowPriority;
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.fill = colorLowPriority;
+      plantDiv[0].getElementsByClassName(`plant-cask-${dataObj.id}`)[0].style.stroke = colorLowPriority;
       priority = 1
+    }
+
+    if(kind == "humidity"){
+      priority = 0;
     }
 
     let code = document.createElement("DIV");
@@ -209,34 +223,74 @@ window.api.receive("fromMain", (data) => {
       chartsData[data[i].id].temperature.shift()
       chartsData[data[i].id].humidity.push({x: time, y:data[i].canister.humidity})
       chartsData[data[i].id].humidity.shift()
-      chartsData[data[i].id].radiation.push({x: time, y:data[i].cask.radiation})
+      chartsData[data[i].id].radiation.push({x: time, y:data[i].cask.radiation.toFixed(2)})
       chartsData[data[i].id].radiation.shift()
     }
   
-  dataObjs[i].cask.color =  temperatureColorSelector(data[i].cask.temperature, maxVal.cask.temperature);
-  dataObjs[i].canister.color =  temperatureColorSelector(data[i].canister.temperature, maxVal.canister.temperature);
-  dataObjs[i].fuel.color =  temperatureColorSelector(data[i].fuel.temperature, maxVal.fuel.temperature);
+  dataObjs[i].cask.color =  temperatureColorSelector(data[i].cask.temperature,
+                                                     maxVal.cask.temperature);
+
+  dataObjs[i].canister.color =  temperatureColorSelector(data[i].canister.temperature,
+                                                         maxVal.canister.temperature);
+
+  dataObjs[i].fuel.color =  temperatureColorSelector(data[i].fuel.temperature,
+                                                     maxVal.fuel.temperature);
   
-  boxArray[i].getElementsByClassName("cask-mini")[0].style.stroke = temperatureColorSelector(data[i].cask.temperature, maxVal.cask.temperature);
-  boxArray[i].getElementsByClassName("canister-mini")[0].style.stroke = temperatureColorSelector(data[i].canister.temperature, maxVal.canister.temperature);
+  boxArray[i].getElementsByClassName("cask-mini")[0].style.stroke = temperatureColorSelector(data[i].cask.temperature,
+                                                                                             maxVal.cask.temperature);
+
+  boxArray[i].getElementsByClassName("canister-mini")[0].style.stroke = temperatureColorSelector(data[i].canister.temperature,
+                                                                                                 maxVal.canister.temperature);
+                                                                                                 
   boxArray[i].getElementsByClassName("fuel-mini")[0].style.fill = temperatureColorSelector(data[i].fuel.temperature, maxVal.fuel.temperature);
 
-  let temperatureAlarm = alertNodeGenerator(dataObjs[i].variable.temperature, maxVal.variable.temperature, "Temperatura elevada", dataObjs[i])
-  // console.log(temperatureAlarm)
-  let humidityAlarm = alertNodeGenerator(dataObjs[i].variable.humidity, maxVal.variable.humidity, "Umidade elevada", dataObjs[i])
-  // console.log(humidityAlarm)
-  let radiationAlarm = alertNodeGenerator(dataObjs[i].variable.radiation, maxVal.variable.radiation, "Radiacao elevada", dataObjs[i])
-  // console.log(radiationAlarm)
-  let fuelTemperatureAlarm = alertNodeGenerator(dataObjs[i].fuel.temperature, maxVal.fuel.temperature, "Temperatura do nucleo elevada", dataObjs[i])
-  let caskTemperatureAlarm = alertNodeGenerator(dataObjs[i].cask.temperature, maxVal.canister.temperature, "Temperatura do cask elevada", dataObjs[i])
-  let canisterTemperatureAlarm = alertNodeGenerator(dataObjs[i].canister.temperature, maxVal.canister.temperature, "Radiacao elevada", dataObjs[i])
+  let temperatureAlarm = alertNodeGenerator(dataObjs[i].variable.temperature,
+                                            maxVal.variable.temperature, 
+                                            "Temperatura elevada", 
+                                            dataObjs[i], 
+                                            "temperature")
+ 
+  let humidityAlarm = alertNodeGenerator(dataObjs[i].canister.humidity,
+                                         maxVal.canister.humidity,
+                                         "Umidade elevada",
+                                         dataObjs[i],
+                                         "humidity")
+ 
+  let radiationAlarm = alertNodeGenerator(dataObjs[i].cask.radiation,
+                                          maxVal.cask.radiation, 
+                                          "Radiacao elevada", 
+                                          dataObjs[i], 
+                                          "radiation")
+  
+  let fuelTemperatureAlarm = alertNodeGenerator(dataObjs[i].fuel.temperature, 
+                                                maxVal.fuel.temperature, 
+                                                "Temperatura do nucleo elevada", 
+                                                dataObjs[i], 
+                                                "temperature")
+                                                
+  let caskTemperatureAlarm = alertNodeGenerator(dataObjs[i].cask.temperature, 
+                                                maxVal.cask.temperature, 
+                                                "Temperatura do cask elevada", 
+                                                dataObjs[i], 
+                                                "temperature")
 
-  alarmArray = alarmArray.concat([temperatureAlarm, humidityAlarm, radiationAlarm, fuelTemperatureAlarm, caskTemperatureAlarm, canisterTemperatureAlarm])
+  let canisterTemperatureAlarm = alertNodeGenerator(dataObjs[i].canister.temperature, 
+                                                    maxVal.canister.temperature, 
+                                                    "Temperatura do canister elevada", 
+                                                    dataObjs[i], 
+                                                    "temperature")
+
+  alarmArray = alarmArray.concat([temperatureAlarm, 
+                                  humidityAlarm, 
+                                  radiationAlarm, 
+                                  fuelTemperatureAlarm, 
+                                  caskTemperatureAlarm, 
+                                  canisterTemperatureAlarm])
 
 
   canTurnOffAlarm = dataObjs[i].variable.temperature < 0.7*maxVal.variable.temperature &&
-                    dataObjs[i].variable.humidity < 0.7*maxVal.variable.humidity &&
-                    dataObjs[i].variable.radiation  < 0.7*maxVal.variable.radiation &&
+                    dataObjs[i].canister.humidity < 0.7*maxVal.canister.humidity &&
+                    dataObjs[i].cask.radiation  < 0.7*maxVal.cask.radiation &&
                     dataObjs[i].fuel.temperature < 0.7*maxVal.fuel.temperature &&
                     dataObjs[i].cask.temperature < 0.7*maxVal.cask.temperature &&
                     dataObjs[i].canister.temperature < 0.7*maxVal.canister.temperature
@@ -259,4 +313,4 @@ for (let node of alarmArray){
 setInterval(()=>{
   window.api.send("toMain", "some data");
 
-}, 1000)
+}, 10000)

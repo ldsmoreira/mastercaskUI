@@ -34,7 +34,6 @@ async function createWindow() {
 app.on("ready", createWindow);
 
 ipcMain.on("toMain", (event, args) => {
-//    setInterval(()=>{
   fs.readFile("data.json", (error, data) => {
 
        let responseObj = JSON.parse(data)
@@ -42,5 +41,4 @@ ipcMain.on("toMain", (event, args) => {
        console.log(responseObj);
        win.webContents.send("fromMain", responseObj);
     });
-//},10000)
 });
