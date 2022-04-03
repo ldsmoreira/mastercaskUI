@@ -32,13 +32,19 @@ async function createWindow() {
 }
 
 app.on("ready", createWindow);
+fs.watchFile("ram/data.json", ()=> fs.readFile("ram/data.json", (error, data) => {
 
-ipcMain.on("toMain", (event, args) => {
-  fs.readFile("data.json", (error, data) => {
+  let responseObj = JSON.parse(data)
+  console.log(data);
+  console.log(responseObj);
+  win.webContents.send("fromMain", responseObj);
+}))
+// ipcMain.on("toMain", (event, args) => {
+//   fs.readFile("data.json", (error, data) => {
 
-       let responseObj = JSON.parse(data)
-       console.log(data);
-       console.log(responseObj);
-       win.webContents.send("fromMain", responseObj);
-    });
-});
+//        let responseObj = JSON.parse(data)
+//        console.log(data);
+//        console.log(responseObj);
+//        win.webContents.send("fromMain", responseObj);
+//     });
+// });

@@ -310,7 +310,7 @@ for (let node of alarmArray){
 });
 
 
-setInterval(()=>{
-  window.api.send("toMain", "some data");
+// setInterval(()=>{
+//   window.api.send("toMain", "some data");
 
-}, 10000)
+// }, 10000)
